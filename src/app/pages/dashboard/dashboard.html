@@ -1,0 +1,77 @@
+<app-page-header [eyebrow]="(today | date: 'EEEE, MMMM d, y' | uppercase) + ' · YOUR WORKSPACE'">
+  <h1 pageHeaderTitle>A clearer view<br class="mobile-break" /> of your team.</h1>
+  <p pageHeaderDescription class="intro-copy">Here’s what’s happening across your workspace today.</p>
+  <a pageHeaderActions class="button button-primary" routerLink="/users"><span aria-hidden="true">＋</span> Invite a teammate</a>
+</app-page-header>
+
+@if (accessDeniedReason(); as reason) {
+  <p class="access-notice" role="alert">
+    @if (reason === 'sign-in') {
+      Sign in is required to manage team members.
+    } @else {
+      Your demo role does not have permission to manage team members.
+    }
+  </p>
+}
+
+<section class="metric-grid" aria-label="Workspace overview">
+  <article class="metric-card metric-green">
+    <div class="metric-top"><span>Team members</span><span class="metric-icon" aria-hidden="true">♙</span></div>
+    <strong>{{ store.users().length }}</strong>
+    <div class="metric-foot"><span class="trend-up">↗ 2</span> since last month</div>
+    <span class="metric-scribble" aria-hidden="true">↗</span>
+  </article>
+  <article class="metric-card metric-yellow">
+    <div class="metric-top"><span>Active members</span><span class="metric-icon" aria-hidden="true">✓</span></div>
+    <strong>{{ store.activeCount() }}</strong>
+    <div class="metric-foot"><span class="trend-up">{{ (store.activeCount() / store.users().length * 100) | number: '1.0-0' }}%</span> of your team</div>
+    <span class="metric-scribble" aria-hidden="true">↗</span>
+  </article>
+  <article class="metric-card metric-blue">
+    <div class="metric-top"><span>Pending invites</span><span class="metric-icon" aria-hidden="true">✉</span></div>
+    <strong>{{ store.invitedCount() }}</strong>
+    <div class="metric-foot">Awaiting a response</div>
+    <span class="metric-scribble" aria-hidden="true">↗</span>
+  </article>
+</section>
+
+<section class="content-grid">
+  <article class="panel activity-panel">
+    <div class="panel-heading">
+      <div><h2>Workspace activity</h2><p>Team collaboration over the last 28 days</p></div>
+      <button class="period-select" type="button">Last 28 days <span aria-hidden="true">⌄</span></button>
+    </div>
+    <div class="chart-legend"><span><i></i> Activity</span><span>Updated just now</span></div>
+    <div class="activity-chart" role="img" aria-label="Workspace activity trending upward over the last 28 days">
+      <div class="chart-y-labels"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
+      <div class="chart-plot">
+        <div class="chart-gridlines"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="chart-bars">
+          @for (height of weeklyActivity; track $index) {
+            <span [style.height.%]="height" [class.bar-highlight]="$index === 23"></span>
+          }
+        </div>
+      </div>
+    </div>
+    <div class="chart-x-labels"><span>Sep 26</span><span>Oct 03</span><span>Oct 10</span><span>Oct 17</span><span>Oct 23</span></div>
+  </article>
+
+  <article class="panel team-panel">
+    <div class="panel-heading">
+      <div><h2>Team members</h2><p>Your most recently active people</p></div>
+      <a class="text-link" routerLink="/users">View all <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="team-list">
+      @for (user of store.users().slice(0, 5); track user.id) {
+        <div class="team-row">
+          <span class="avatar avatar-{{ user.color }}">{{ user.initials }}</span>
+          <span class="team-copy"><strong>{{ user.name }}</strong><small>{{ user.role }}</small></span>
+          <span class="presence" [class.presence-away]="user.status !== 'Active'" [attr.aria-label]="user.status"></span>
+        </div>
+      }
+    </div>
+    <a class="manage-team" routerLink="/users">Manage team <span aria-hidden="true">↗</span></a>
+  </article>
+</section>
+
+<section class="bottom-note"><span class="note-icon" aria-hidden="true">✳</span><p><strong>A good team starts with clarity.</strong> Review access and roles to keep your workspace running smoothly.</p><a routerLink="/users">Review access <span aria-hidden="true">→</span></a></section>

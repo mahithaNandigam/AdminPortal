@@ -1,6 +1,34 @@
-# AdminPortal
+# Northstar Admin Portal
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.2.
+A responsive Angular administration workspace for reviewing team activity and managing member access.
+
+## Requirements and setup
+
+Use Node.js 22.22.3 or newer. Install dependencies and start the local server:
+
+```bash
+npm ci
+npm start
+```
+
+Open `http://localhost:4200/`. Build for production with `npm run build`; run unit tests with `npm test -- --watch=false`. After building, run the Node SSR server with `npm run serve:ssr:AdminPortal` (defaults to port 4000).
+
+## Angular patterns in the app
+
+- Standalone components with lazy-loaded routes and route links.
+- Signal state and computed values in the injectable `UserStore`.
+- Signal inputs and outputs in the reusable member row.
+- Built-in template control flow (`@if`, `@for`, `@empty`) and property/event bindings.
+- Reactive forms with typed controls and validation for member invitations.
+- A custom status pipe and focus directive, plus Angular's built-in decimal pipe.
+- Functional route guards with an interactive demo-access selector.
+- `HttpClient`, typed API services, functional interceptors, and RxJS observables.
+- Lifecycle hooks (`OnInit`/`OnDestroy`) for status polling/subscription cleanup.
+- Content projection with named `ng-content` slots in the shared page header.
+- Server-side rendering and hydration, with request-time rendering for admin routes.
+- Production and development builds with bundle budgets and unit tests.
+
+The role selector, health endpoint, chart, and member records are demonstrations. Invitations and access changes update in-memory state only; the demo interceptor answers only the health endpoint. The SSR host allowlist currently permits localhost and loopback for development. Replace these adapters with your identity provider and API, configure deployed hostnames explicitly, and enforce authorization on the server before deploying for real users.
 
 ## Development server
 

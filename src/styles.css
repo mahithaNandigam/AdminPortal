@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+	color-scheme: light;
+	--paper: #fff;
+	--canvas: #f7f8f5;
+	--ink: #27332b;
+	--muted: #818780;
+	--line: #e8ebe6;
+	--green: #4f8a60;
+	font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background: var(--canvas);
+	color: var(--ink);
+}
+
+* { box-sizing: border-box; }
+body { min-width: 320px; min-height: 100vh; margin: 0; }
+button, input, select { font: inherit; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid rgb(77 126 87 / 35%); outline-offset: 2px; }
+::selection { background: #d8ead9; color: #24382a; }

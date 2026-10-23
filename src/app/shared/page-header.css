@@ -1,0 +1,7 @@
+:host { display: block; animation: arrive .45s ease both; }
+.page-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
+.page-heading-copy { min-width: 0; }
+.eyebrow { display: flex; align-items: center; gap: 8px; margin: 0 0 14px; color: #878d86; font-size: 9px; font-weight: 750; letter-spacing: .1em; }
+@keyframes arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 520px) { .page-heading { align-items: flex-start; flex-direction: column; margin-bottom: 20px; } }
+@media (prefers-reduced-motion: reduce) { :host { animation-duration: .01ms; } }
