@@ -1,0 +1,5 @@
+<td><div class="person-cell"><span class="avatar avatar-{{ user().color }}">{{ user().initials }}</span><span class="person-copy"><strong>{{ user().name }}</strong><small>{{ user().email }}</small></span></div></td>
+<td><select class="role-select" [value]="user().role" [attr.aria-label]="'Role for ' + user().name" (change)="changeRole($any($event.target).value)"><option>Administrator</option><option>Editor</option><option>Viewer</option></select></td>
+<td><span class="status-pill" [class.status-active]="user().status === 'Active'" [class.status-invited]="user().status === 'Invited'" [class.status-suspended]="user().status === 'Suspended'"><i></i>{{ user().status | userStatus }}</span></td>
+<td class="joined-date">{{ user().joined }}</td>
+<td><button class="row-action" type="button" [attr.aria-label]="(user().status === 'Suspended' ? 'Reactivate ' : 'Suspend ') + user().name" [title]="user().status === 'Suspended' ? 'Reactivate member' : 'Suspend member'" (click)="statusChange.emit(user())">{{ user().status === 'Suspended' ? '↗' : '···' }}</button></td>
